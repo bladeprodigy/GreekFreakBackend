@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GreekFreakBackend", "GreekFreakBackend.csproj", "{EFE4C8EE-AC25-45CA-9799-B332DAE2FD11}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EFE4C8EE-AC25-45CA-9799-B332DAE2FD11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFE4C8EE-AC25-45CA-9799-B332DAE2FD11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFE4C8EE-AC25-45CA-9799-B332DAE2FD11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFE4C8EE-AC25-45CA-9799-B332DAE2FD11}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
