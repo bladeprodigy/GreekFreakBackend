@@ -100,6 +100,8 @@ if (app.Environment.IsDevelopment())
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
+    var dbContext = services.GetRequiredService<ApplicationDbContext>();
+    dbContext.Database.Migrate();
     var loginAndRegisterService = services.GetRequiredService<ILoginAndRegisterService>();
     await loginAndRegisterService.CreateRoles();
     var userService = scope.ServiceProvider.GetRequiredService<IAdminService>();
