@@ -31,9 +31,7 @@ jobs:
 
       - name: Apply EF Core Migrations
         run: dotnet ef database update --configuration Release
-        env:
-          ConnectionString: ${{ secrets.AZURE_SQL_CONNECTION_STRING }}
-        # Make sure you have a secret named AZURE_SQL_CONNECTION_STRING with the connection string to your database
+        
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
