@@ -21,7 +21,6 @@ jobs:
 
       - name: Install Entity Framework Core tools
         run: dotnet tool install --global dotnet-ef --version 7.0.12
-        # Install the dotnet-ef tool globally
 
       - name: Build with dotnet
         run: dotnet build --configuration Release
@@ -31,7 +30,8 @@ jobs:
 
       - name: Apply EF Core Migrations
         run: dotnet ef database update --configuration Release
-        
+        env:
+          ConnectionString: ${{ secrets.AZURE_SQL_CONNECTION_STRING }}
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
