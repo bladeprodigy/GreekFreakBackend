@@ -20,7 +20,7 @@ jobs:
           include-prerelease: true
 
       - name: Install Entity Framework Core tools
-        run: dotnet tool install --global dotnet-ef
+        run: dotnet tool install --global dotnet-ef --version 7.0.12
         # Install the dotnet-ef tool globally
 
       - name: Build with dotnet
