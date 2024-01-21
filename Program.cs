@@ -88,6 +88,15 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", corsPolicyBuilder =>
+    {
+        corsPolicyBuilder.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+    });
+});
 
 var app = builder.Build();
 
@@ -107,6 +116,8 @@ using (var scope = app.Services.CreateScope())
     var userService = scope.ServiceProvider.GetRequiredService<IAdminService>();
     await userService.InitializeAdminAsync();
 }
+
+app.UseCors("AllowAll");
 
 app.UseHttpsRedirection();
 
