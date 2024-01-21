@@ -15,6 +15,7 @@ builder.Services.AddScoped<ILoginAndRegisterService, LoginAndRegisterService>();
 builder.Services.AddScoped<IAdminService, AdminService>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<ISittingService, SittingService>();
+builder.Services.AddScoped<IReservationService, ReservationService>();
 
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -126,7 +127,11 @@ using (var scope = app.Services.CreateScope())
     await loginAndRegisterService.CreateRoles();
     var userService = scope.ServiceProvider.GetRequiredService<IAdminService>();
     await userService.InitializeAdminAsync();
+    var sittingService = services.GetRequiredService<ISittingService>();
+    await sittingService.InstantCreateSittingsAsync();
+
 }
+
 
 app.UseCors("AllowAll");
 

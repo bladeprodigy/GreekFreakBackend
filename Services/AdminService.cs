@@ -40,7 +40,7 @@ public class AdminService : IAdminService
 
         return userDtos;
     }
-    
+
     public async Task<IdentityResult> DeleteUserAsync(string userId)
     {
         var user = await _userManager.FindByIdAsync(userId);
@@ -51,7 +51,7 @@ public class AdminService : IAdminService
 
         return await _userManager.DeleteAsync(user);
     }
-    
+
     public async Task InitializeAdminAsync()
     {
         const string adminEmail = "admin@example.com";
@@ -92,7 +92,7 @@ public class AdminService : IAdminService
             })
             .ToListAsync();
     }
-    
+
     public async Task<bool> CreateSittingAsync(AvailableSittingDto sittingDto)
     {
         var sitting = new Sitting
@@ -115,6 +115,33 @@ public class AdminService : IAdminService
         }
 
         _context.Sittings.Remove(sitting);
+        await _context.SaveChangesAsync();
+        return true;
+    }
+    public async Task<IEnumerable<ReservationDto>> GetAllReservationsAsync()
+    {
+        return await _context.Reservations
+            .Select(r => new ReservationDto
+            {
+                ReservationId = r.ReservationId,
+                SittingId = r.SittingId,
+                ReservationTime = r.ReservationTime,
+                NumberOfGuests = r.NumberOfGuests
+            }
+            )
+            .ToListAsync();
+    }
+    public async Task<bool> DeleteReservationAsync(int reservationId)
+    {
+        var reservation = await _context.Reservations
+            .FirstOrDefaultAsync(r => r.ReservationId == reservationId);
+
+        if (reservation == null)
+        {
+            return false; // Reservation not found 
+        }
+
+        _context.Reservations.Remove(reservation);
         await _context.SaveChangesAsync();
         return true;
     }
