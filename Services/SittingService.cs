@@ -1,6 +1,7 @@
 using GreekFreakBackend.Database;
 using GreekFreakBackend.Dtos;
 using GreekFreakBackend.Interfaces;
+using GreekFreakBackend.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace GreekFreakBackend.Services;
@@ -46,5 +47,28 @@ public class SittingService : ISittingService
             .ToListAsync();
 
         return !overlappingReservations.Any();
+    }
+    public async Task InstantCreateSittingsAsync()
+    {
+        if (!_context.Sittings.Any())
+        {
+            
+            for (int i = 1; i <= 10; i++)
+            {
+                var newSitting = new Sitting
+                {
+                    
+           
+                    Capacity = i % 5 + 1,
+                    IsOutside = i > 5 
+                };
+
+                
+                _context.Sittings.Add(newSitting);
+            }
+
+            
+            _context.SaveChanges();
+        }
     }
 }

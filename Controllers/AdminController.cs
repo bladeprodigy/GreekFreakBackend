@@ -1,7 +1,10 @@
 using GreekFreakBackend.Dtos;
 using GreekFreakBackend.Exceptions;
 using GreekFreakBackend.Interfaces;
+using GreekFreakBackend.Models;
+using GreekFreakBackend.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GreekFreakBackend.Controllers;
@@ -70,6 +73,25 @@ public class AdminController : ControllerBase
         if (!success)
         {
             return NotFound("Sitting not found.");
+        }
+
+        return Ok();
+    }
+
+    [HttpGet("reservations")]
+    public async Task<IActionResult> GetAllReservations()
+    {
+        var reservations = await _adminService.GetAllReservationsAsync();
+        return Ok(reservations);
+    }
+
+    [HttpDelete("{reservationId:int}")]
+    public async Task<IActionResult> DeleteReservation(int reservationId)
+    {
+        var success = await _adminService.DeleteReservationAsync(reservationId);
+        if (!success)
+        {
+            return NotFound("Reservation not found.");
         }
 
         return Ok();

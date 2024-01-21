@@ -11,4 +11,6 @@ public interface IAdminService
     Task<IEnumerable<SittingDto>> GetAllSittingsAsync();
     Task<bool> CreateSittingAsync(AvailableSittingDto sittingDto);
     Task<bool> DeleteSittingAsync(int sittingId);
+    Task<IEnumerable<ReservationDto>> GetAllReservationsAsync();
+    Task<bool> DeleteReservationAsync(int reservationId);
 }
