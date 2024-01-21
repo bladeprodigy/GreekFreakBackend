@@ -103,6 +103,12 @@ builder.Services.AddHttpsRedirection(options =>
     options.HttpsPort = 443;
 });
 
+builder.Services.Configure<ForwardedHeadersOptions>(options =>
+{
+    options.ForwardedHeaders = Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders.XForwardedFor | 
+                               Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders.XForwardedProto;
+});
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -129,6 +135,7 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.UseForwardedHeaders();
 app.UseHttpsRedirection();
 
 app.MapControllers();
