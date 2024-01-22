@@ -4,6 +4,6 @@ namespace GreekFreakBackend.Interfaces;
 
 public interface ISittingService
 {
-    Task<IEnumerable<AvailableSittingDto>> GetAvailableSittingsAsync(DateTime reservationTime, int numberOfGuests);
+    Task<IEnumerable<SittingDto>> GetAvailableSittingsAsync(DateTime reservationTime, int numberOfGuests);
     Task InstantCreateSittingsAsync();
 }

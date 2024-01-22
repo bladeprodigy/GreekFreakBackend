@@ -25,7 +25,7 @@ public class LoginAndRegisterController : ControllerBase
         var result = await _loginAndRegisterService.RegisterUserAsync(model);
         if (result.Succeeded)
         {
-            return Ok("User registered successfully.");
+            return Ok(new { message = "User registered successfully." });
         }
 
         return BadRequest(result.Errors);

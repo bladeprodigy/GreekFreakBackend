@@ -15,20 +15,21 @@ public class SittingService : ISittingService
         _context = context;
     }
     
-    public async Task<IEnumerable<AvailableSittingDto>> GetAvailableSittingsAsync(DateTime reservationTime, int numberOfGuests)
+    public async Task<IEnumerable<SittingDto>> GetAvailableSittingsAsync(DateTime reservationTime, int numberOfGuests)
     {
         var availableSittings = await _context.Sittings
             .Where(s => s.Capacity == numberOfGuests)
             .ToListAsync();
 
-        var availableSittingDtos = new List<AvailableSittingDto>();
+        var availableSittingDtos = new List<SittingDto>();
         foreach (var sitting in availableSittings)
         {
             var isAvailable = await IsSittingAvailableAsync(sitting.SittingId, reservationTime);
             if (isAvailable)
             {
-                availableSittingDtos.Add(new AvailableSittingDto()
+                availableSittingDtos.Add(new SittingDto()
                 {
+                    SittingId = sitting.SittingId,
                     Capacity = sitting.Capacity,
                     IsOutside = sitting.IsOutside
                 });
@@ -68,7 +69,7 @@ public class SittingService : ISittingService
             }
 
             
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
     }
 }
