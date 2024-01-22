@@ -1,3 +1,4 @@
+using GreekFreakBackend.Dtos;
 using GreekFreakBackend.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -16,10 +17,10 @@ public class SittingController : ControllerBase
         _sittingService = sittingService;
     }
 
-    [HttpGet("available")]
-    public async Task<IActionResult> GetAvailableSittings(DateTime reservationTime, int numberOfGuests)
+    [HttpPost("available")]
+    public async Task<IActionResult> GetAvailableSittings(AvailableSittingRequestDto request)
     {
-        var availableSittings = await _sittingService.GetAvailableSittingsAsync(reservationTime, numberOfGuests);
+        var availableSittings = await _sittingService.GetAvailableSittingsAsync(request.ReservationTime, request.NumberOfGuests);
         if (!availableSittings.Any())
         {
             return NotFound("There are no available sittings for this amount of people at this time.");
