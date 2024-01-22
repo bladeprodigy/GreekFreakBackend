@@ -17,19 +17,6 @@ public class ReservationService : IReservationService
     
     public async Task<ReservationDto> CreateReservationAsync(string userId, CreateReservationDto createDto)
     {
-        var existingReservation = await _context.Reservations
-            .AnyAsync(r => r.UserId == userId && 
-                           r.ReservationTime.Date == createDto.ReservationTime.Date);
-
-        if (existingReservation)
-        {
-            throw new InvalidOperationException("User can only make one reservation per day.");
-        }
-        
-        if (createDto.ReservationTime.Hour < 14 || createDto.ReservationTime.Hour >= 24)
-        {
-            throw new InvalidOperationException("Reservations can only be made from 2pm to 12am.");
-        }
 
         var reservation = new Reservation
         {
@@ -61,7 +48,6 @@ public class ReservationService : IReservationService
                 SittingId = r.SittingId,
                 ReservationTime = r.ReservationTime,
                 NumberOfGuests = r.NumberOfGuests
-                // Map other properties as needed
             })
             .FirstOrDefaultAsync();
 
@@ -78,7 +64,6 @@ public class ReservationService : IReservationService
                 SittingId = r.SittingId,
                 ReservationTime = r.ReservationTime,
                 NumberOfGuests = r.NumberOfGuests
-                // Map other properties as needed
             })
             .ToListAsync();
     }
@@ -90,7 +75,7 @@ public class ReservationService : IReservationService
 
         if (reservation == null)
         {
-            return false; // Reservation not found or not owned by the user
+            return false;
         }
 
         _context.Reservations.Remove(reservation);

@@ -138,7 +138,7 @@ public class AdminService : IAdminService
 
         if (reservation == null)
         {
-            return false; // Reservation not found 
+            return false;
         }
 
         _context.Reservations.Remove(reservation);
